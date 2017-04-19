@@ -3,9 +3,10 @@
 namespace TwoFAS\Encryption;
 
 use TwoFAS\Encryption\Interfaces\Cipher;
+use TwoFAS\Encryption\Interfaces\CryptographerInterface;
 use TwoFAS\Encryption\Interfaces\KeyStorage;
 
-class Cryptographer
+class Cryptographer implements CryptographerInterface
 {
     /**
      * @var Cipher
@@ -33,11 +34,7 @@ class Cryptographer
     }
 
     /**
-     * Encrypt message and return it in encrypted form
-     *
-     * @param string $data Message to be encrypted
-     *
-     * @return string|null Encrypted message
+     * @inheritdoc
      */
     public function encrypt($data)
     {
@@ -48,11 +45,7 @@ class Cryptographer
     }
 
     /**
-     * Decrypt message and return it in decrypted form
-     *
-     * @param string $data Message to be decrypted
-     *
-     * @return string|null Decrypted message
+     * @inheritdoc
      */
     public function decrypt($data)
     {
@@ -61,5 +54,4 @@ class Cryptographer
         }
         return $this->cipher->decrypt($data);
     }
-
 }
