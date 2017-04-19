@@ -11,7 +11,7 @@ class RsaCryptographerTest extends \PHPUnit_Framework_TestCase
     {
         $cryptographer = new RsaCryptographer(self::KEY_PUBLIC, self::KEY_PRIVATE);
 
-        $encrypted = $cryptographer->encryptBase64('foobar');
+        $encrypted = $cryptographer->encryptToBase64('foobar');
 
         $this->assertEquals('foobar', $cryptographer->decryptBase64($encrypted));
     }
@@ -23,7 +23,7 @@ class RsaCryptographerTest extends \PHPUnit_Framework_TestCase
         $privateKey = 'LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUdzQWdFQUFpRUFwanNtU000T0ZROE4vQ2kzRHB4RFpqMi84VUZyS1RTL3pLVVZYWDJ2OXZFQ0F3RUFBUUlnCkE0ZmVHRTNJSHNwakVhZ0x1MU8yV3J6Ukp6NDVGeVZ4SERVaFNOR081OEVDRVFEU21wNTF0a3FBTWxieko4NS8KWEVkdkFoRUF5Zy82b25NbG1JMG9DcXBCOXdWM253SVJBS2xvOHpxaExvQzgvYkNQUHM2NGZrVUNFUUN4OGg2RQpQNm1GVGhKTVNpSXJtNW43QWhFQXJZSTRsQjJXYzM1RFNtNlA1a1BqSWc9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=';
 
         $cryptographer = new RsaCryptographer(self::KEY_PUBLIC, $privateKey);
-        $encrypted = $cryptographer->encryptBase64('foobar');
+        $encrypted = $cryptographer->encryptToBase64('foobar');
 
         $cryptographer->decryptBase64($encrypted);
     }

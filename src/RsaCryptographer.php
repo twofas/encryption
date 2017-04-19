@@ -34,7 +34,7 @@ class RsaCryptographer
      *
      * @throws RsaEncryptException
      */
-    public function encryptBase64($data)
+    public function encryptToBase64($data)
     {
         if (openssl_public_encrypt($data, $encrypted, $this->publicKey)) {
             return base64_encode($encrypted);
@@ -52,7 +52,7 @@ class RsaCryptographer
      */
     public function decryptBase64($data)
     {
-        if (openssl_private_decrypt(base64_decode($data), $decrypted, $this->privateKey)) {
+        if (openssl_private_decrypt(base64_decode($data, true), $decrypted, $this->privateKey)) {
             return $decrypted;
         }
 
