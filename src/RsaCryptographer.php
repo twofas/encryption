@@ -4,9 +4,8 @@ namespace TwoFAS\Encryption;
 
 use TwoFAS\Encryption\Exceptions\RsaDecryptException;
 use TwoFAS\Encryption\Exceptions\RsaEncryptException;
-use TwoFAS\Encryption\Interfaces\CryptographerInterface;
 
-class RsaCryptographer implements CryptographerInterface
+class RsaCryptographer
 {
     /**
      * @var string
@@ -24,8 +23,8 @@ class RsaCryptographer implements CryptographerInterface
      */
     public function __construct($publicKey, $privateKey)
     {
-        $this->publicKey  = $publicKey;
-        $this->privateKey = $privateKey;
+        $this->publicKey  = base64_decode($publicKey, true);
+        $this->privateKey = base64_decode($privateKey, true);
     }
 
     /**
@@ -35,11 +34,9 @@ class RsaCryptographer implements CryptographerInterface
      *
      * @throws RsaEncryptException
      */
-    public function encrypt($data)
+    public function encryptBase64($data)
     {
-        $public = base64_decode($this->publicKey, true);
-
-        if (openssl_public_encrypt($data, $encrypted, $public)) {
+        if (openssl_public_encrypt($data, $encrypted, $this->publicKey)) {
             return base64_encode($encrypted);
         }
 
@@ -53,11 +50,9 @@ class RsaCryptographer implements CryptographerInterface
      *
      * @throws RsaDecryptException
      */
-    public function decrypt($data)
+    public function decryptBase64($data)
     {
-        $private = base64_decode($this->privateKey, true);
-
-        if (openssl_private_decrypt(base64_decode($data), $decrypted, $private)) {
+        if (openssl_private_decrypt(base64_decode($data), $decrypted, $this->privateKey)) {
             return $decrypted;
         }
 
