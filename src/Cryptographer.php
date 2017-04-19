@@ -61,5 +61,4 @@ class Cryptographer
         }
         return $this->cipher->decrypt($data);
     }
-
 }
