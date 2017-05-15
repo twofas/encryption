@@ -5,10 +5,10 @@ namespace TwoFAS\Encryption;
 use TwoFAS\Encryption\Interfaces\Key;
 
 /**
- * Class AESKey implementing Key interface.
+ * Class AESGeneratedKey implementing Key interface.
  * @package TwoFAS\Encryption
  */
-class AESKey implements Key
+class AESGeneratedKey implements Key
 {
     /**
      * String representing AESKey
@@ -18,13 +18,18 @@ class AESKey implements Key
     private $key;
 
     /**
-     * AESKey constructor.
+     * Key length
      *
-     * @param string $bytes
+     * @var int
      */
-    public function __construct($bytes)
+    private $keyLength = 128;
+
+    /**
+     * AESGeneratedKey constructor.
+     */
+    public function __construct()
     {
-        $this->key = $bytes;
+        $this->key = openssl_random_pseudo_bytes($this->keyLength);
     }
 
     /**

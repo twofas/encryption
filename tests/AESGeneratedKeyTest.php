@@ -2,18 +2,18 @@
 
 namespace TwoFAS\Encryption;
 
-class AESKeyTest extends \PHPUnit_Framework_TestCase
+class AESGeneratedKeyTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsInstantiable()
     {
-        $key = new AESKey();
+        $key = new AESGeneratedKey();
 
-        $this->assertInstanceOf('\TwoFAS\Encryption\AESKey', $key);
+        $this->assertInstanceOf('\TwoFAS\Encryption\AESGeneratedKey', $key);
     }
 
     public function testReturnsValidKeyLength()
     {
-        $key = new AESKey();
+        $key = new AESGeneratedKey();
 
         $this->assertEquals(strlen($key->getValue()), 128);
     }

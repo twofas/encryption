@@ -17,7 +17,8 @@ interface KeyStorage
 
     /**
      * Retrieve stored Key object.
+     *
      * @return Key
      */
-    public function retrieveKeyValue();
+    public function retrieveKey();
 }

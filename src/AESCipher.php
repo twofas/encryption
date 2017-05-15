@@ -2,9 +2,10 @@
 
 namespace TwoFAS\Encryption;
 
+use InvalidArgumentException;
 use TwoFAS\Encryption\Interfaces\Cipher;
-use TwoFAS\Encryption\Interfaces\KeyStorage;
 use TwoFAS\Encryption\Interfaces\IVGenerator;
+use TwoFAS\Encryption\Interfaces\KeyStorage;
 
 class AESCipher implements Cipher
 {
@@ -37,6 +38,7 @@ class AESCipher implements Cipher
 
     /**
      * Returns string encryption algorithm used by this class.
+     *
      * @return string
      */
     public function getCipherMethod()
@@ -55,10 +57,10 @@ class AESCipher implements Cipher
     {
         //  Get initialization vector and key value
         $iv  = $this->ivGenerator->getIV();
-        $key = $this->keyStorage->retrieveKeyValue();
+        $key = $this->keyStorage->retrieveKey();
 
         //  Encrypt
-        $encryptedData = openssl_encrypt($data, $this->cipherMethod, $key, 0, $iv);
+        $encryptedData = openssl_encrypt($data, $this->cipherMethod, $key->getValue(), 0, $iv);
 
         //  Encode
         $encryptedData = base64_encode($encryptedData);
@@ -76,22 +78,22 @@ class AESCipher implements Cipher
     public function decrypt($data)
     {
         //  Retrieve key from KeyStorage object
-        $key = $this->keyStorage->retrieveKeyValue();
+        $key = $this->keyStorage->retrieveKey();
 
         //  Obtain encrypted message and initialization vector
         $parts = explode(':', $data);
 
         //  This cipher implementation requires that data variable holds encrypted message and initialization vector
         if (count($parts) !== 2) {
-            throw  new \InvalidArgumentException("
+            throw new InvalidArgumentException('
                 Unable to obtain encrypted message, initialization vector pair from passed argument.
-            ");
+            ');
         }
 
         //  Decrypt and encode data
         $encryptedData = base64_decode($parts[0]);
         $iv            = base64_decode($parts[1]);
 
-        return openssl_decrypt($encryptedData, $this->cipherMethod, $key, 0, $iv);
+        return openssl_decrypt($encryptedData, $this->cipherMethod, $key->getValue(), 0, $iv);
     }
 }
