@@ -37,9 +37,7 @@ class AESCipher implements Cipher
     }
 
     /**
-     * Returns string encryption algorithm used by this class.
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getCipherMethod()
     {
@@ -47,50 +45,42 @@ class AESCipher implements Cipher
     }
 
     /**
-     * Encrypt string passed as argument.
-     *
-     * @param $data String to be encrypted.
-     *
-     * @return string Encrypted string.
+     * @inheritdoc
      */
     public function encrypt($data)
     {
-        //  Get initialization vector and key value
+        // Get initialization vector and key value
         $iv  = $this->ivGenerator->getIV();
         $key = $this->keyStorage->retrieveKey();
 
-        //  Encrypt
+        // Encrypt
         $encryptedData = openssl_encrypt($data, $this->cipherMethod, $key->getValue(), 0, $iv);
 
-        //  Encode
+        // Encode
         $encryptedData = base64_encode($encryptedData);
 
         return $encryptedData . ':' . base64_encode($iv);
     }
 
     /**
-     * Decrypt string passed as argument.
-     *
-     * @param $data String to be decrypted.
-     *
-     * @return string Decrypted string.
+     * @inheritdoc
      */
     public function decrypt($data)
     {
-        //  Retrieve key from KeyStorage object
+        // Retrieve key from KeyStorage object
         $key = $this->keyStorage->retrieveKey();
 
-        //  Obtain encrypted message and initialization vector
+        // Obtain encrypted message and initialization vector
         $parts = explode(':', $data);
 
-        //  This cipher implementation requires that data variable holds encrypted message and initialization vector
+        // This cipher implementation requires that data variable holds encrypted message and initialization vector
         if (count($parts) !== 2) {
             throw new InvalidArgumentException('
                 Unable to obtain encrypted message, initialization vector pair from passed argument.
             ');
         }
 
-        //  Decrypt and encode data
+        // Decrypt and encode data
         $encryptedData = base64_decode($parts[0]);
         $iv            = base64_decode($parts[1]);
 
