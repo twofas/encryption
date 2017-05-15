@@ -10,6 +10,7 @@ interface Key
 {
     /**
      * Return symmetric key as string
+     *
      * @return string
      */
     public function getValue();

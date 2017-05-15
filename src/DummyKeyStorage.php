@@ -19,7 +19,7 @@ class DummyKeyStorage implements KeyStorage
     private $encodedKey;
 
     /**
-     * @param Key $key
+     * @inheritdoc
      */
     public function storeKey(Key $key)
     {
@@ -27,10 +27,10 @@ class DummyKeyStorage implements KeyStorage
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
-    public function retrieveKeyValue()
+    public function retrieveKey()
     {
-        return base64_decode($this->encodedKey);
+        return new AESKey(base64_decode($this->encodedKey));
     }
 }

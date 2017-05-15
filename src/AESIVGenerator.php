@@ -17,6 +17,7 @@ class AESIVGenerator implements IVGenerator
 
     /**
      * Generate IV to be used in AES-256-CBC algorithm.
+     *
      * @return string
      */
     public function getIV()
@@ -26,6 +27,7 @@ class AESIVGenerator implements IVGenerator
 
     /**
      * Return length of generated IV.
+     *
      * @return int
      */
     public function getIVLength()
@@ -35,6 +37,7 @@ class AESIVGenerator implements IVGenerator
 
     /**
      * Return AES-256-CBC string.
+     *
      * @return string
      */
     public function getCipherMethod()

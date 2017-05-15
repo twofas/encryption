@@ -10,6 +10,7 @@ interface Cipher
 {
     /**
      * Return string representing encryption algorithm used in Cipher.
+     *
      * @return string
      */
     public function getCipherMethod();
