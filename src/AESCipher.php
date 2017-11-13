@@ -6,14 +6,14 @@ use InvalidArgumentException;
 use TwoFAS\Encryption\Exceptions\AesException;
 use TwoFAS\Encryption\Interfaces\Cipher;
 use TwoFAS\Encryption\Interfaces\IVGenerator;
-use TwoFAS\Encryption\Interfaces\KeyStorage;
+use TwoFAS\Encryption\Interfaces\ReadKey;
 
 class AESCipher implements Cipher
 {
     /**
      * @var string String describing encryption algorithm used by this class.
      */
-    private $cipherMethod = "AES-256-CBC";
+    private $cipherMethod = 'AES-256-CBC';
 
     /**
      * @var IVGenerator IVGenerator interface implementation.
@@ -21,7 +21,7 @@ class AESCipher implements Cipher
     private $ivGenerator;
 
     /**
-     * @var KeyStorage KeyStorage interface implementation.
+     * @var ReadKey ReadKey interface implementation.
      */
     private $keyStorage;
 
@@ -29,9 +29,9 @@ class AESCipher implements Cipher
      * AESCipher constructor.
      *
      * @param IVGenerator $ivGenerator IVGenerator interface implementation
-     * @param KeyStorage  $keyStorage KeyStorage interface implementation.
+     * @param ReadKey     $keyStorage ReadKey interface implementation.
      */
-    public function __construct(IVGenerator $ivGenerator, KeyStorage $keyStorage)
+    public function __construct(IVGenerator $ivGenerator, ReadKey $keyStorage)
     {
         $this->ivGenerator = $ivGenerator;
         $this->keyStorage  = $keyStorage;
@@ -52,7 +52,7 @@ class AESCipher implements Cipher
     {
         // Get initialization vector and key value
         $iv  = $this->ivGenerator->getIV();
-        $key = $this->keyStorage->retrieveKey();
+        $key = $this->keyStorage->retrieve();
 
         // Encrypt
         $encryptedData = openssl_encrypt($data, $this->cipherMethod, $key->getValue(), 0, $iv);
@@ -73,7 +73,7 @@ class AESCipher implements Cipher
     public function decrypt($data)
     {
         // Retrieve key from KeyStorage object
-        $key = $this->keyStorage->retrieveKey();
+        $key = $this->keyStorage->retrieve();
 
         // Obtain encrypted message and initialization vector
         $parts = explode(':', $data);

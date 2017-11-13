@@ -4,7 +4,7 @@ namespace TwoFAS\Encryption;
 
 use PHPUnit_Framework_MockObject_MockObject;
 use TwoFAS\Encryption\Interfaces\IVGenerator;
-use TwoFAS\Encryption\Interfaces\KeyStorage;
+use TwoFAS\Encryption\Interfaces\ReadKey;
 
 class AESCipherTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,12 +48,12 @@ class AESCipherTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return PHPUnit_Framework_MockObject_MockObject|KeyStorage
+     * @return PHPUnit_Framework_MockObject_MockObject|ReadKey
      */
     private function getKeyStorageMock()
     {
-        $stub = $this->getMockBuilder('\TwoFAS\Encryption\Interfaces\KeyStorage')->getMock();
-        $stub->method('retrieveKey')->willReturn(new AESKey(base64_decode('74r/fgXGBABzgvy/Lph0MdkCec5wKdv8EJ0+++mCxMVOm1PhyKCicnkaVyAgoBDIw3qWWLbZzRlg0yAmlF8p9WFg0ASz79+EwAvraOYng96YqtcAS+ByshThcFp7/DqL6w1KdpVuRq1y0UccnXDm8LFxIv14U/Vmj7v2UdDrdDQ=')));
+        $stub = $this->getMockBuilder('\TwoFAS\Encryption\Interfaces\ReadKey')->getMock();
+        $stub->method('retrieve')->willReturn(new AESKey(base64_decode('74r/fgXGBABzgvy/Lph0MdkCec5wKdv8EJ0+++mCxMVOm1PhyKCicnkaVyAgoBDIw3qWWLbZzRlg0yAmlF8p9WFg0ASz79+EwAvraOYng96YqtcAS+ByshThcFp7/DqL6w1KdpVuRq1y0UccnXDm8LFxIv14U/Vmj7v2UdDrdDQ=')));
 
         return $stub;
     }
