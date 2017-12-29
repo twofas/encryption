@@ -36,7 +36,7 @@ class RsaCryptographer
      */
     public function encryptToBase64($data)
     {
-        if (openssl_public_encrypt($data, $encrypted, $this->publicKey)) {
+        if (openssl_public_encrypt($data, $encrypted, $this->publicKey, OPENSSL_PKCS1_OAEP_PADDING)) {
             return base64_encode($encrypted);
         }
 
@@ -52,7 +52,7 @@ class RsaCryptographer
      */
     public function decryptBase64($data)
     {
-        if (openssl_private_decrypt(base64_decode($data, true), $decrypted, $this->privateKey)) {
+        if (openssl_private_decrypt(base64_decode($data, true), $decrypted, $this->privateKey, OPENSSL_PKCS1_OAEP_PADDING)) {
             return $decrypted;
         }
 
