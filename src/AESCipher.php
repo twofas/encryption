@@ -58,7 +58,7 @@ class AESCipher implements Cipher
         $encryptedData = openssl_encrypt($data, $this->cipherMethod, $key->getValue(), 0, $iv);
 
         if (false === $encryptedData) {
-            throw new AesException();
+            throw new AesException((string) openssl_error_string());
         }
 
         // Encode
@@ -92,7 +92,7 @@ class AESCipher implements Cipher
         $decrypted = openssl_decrypt($encryptedData, $this->cipherMethod, $key->getValue(), 0, $iv);
 
         if (false === $decrypted) {
-            throw new AesException();
+            throw new AesException((string) openssl_error_string());
         }
 
         return $decrypted;

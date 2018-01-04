@@ -36,7 +36,7 @@ class AESGeneratedKey implements Key
         $this->key = openssl_random_pseudo_bytes($this->keyLength);
 
         if (false === $this->key) {
-            throw new AesException();
+            throw new AesException((string) openssl_error_string());
         }
     }
 

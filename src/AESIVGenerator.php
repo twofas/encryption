@@ -28,7 +28,7 @@ class AESIVGenerator implements IVGenerator
         $bytes = openssl_random_pseudo_bytes($this->getIVLength());
 
         if (false === $bytes) {
-            throw new AesException();
+            throw new AesException((string) openssl_error_string());
         }
 
         return $bytes;
@@ -46,7 +46,7 @@ class AESIVGenerator implements IVGenerator
         $length = openssl_cipher_iv_length($this->cipherMethod);
 
         if (false === $length) {
-            throw new AesException();
+            throw new AesException((string) openssl_error_string());
         }
 
         return $length;
