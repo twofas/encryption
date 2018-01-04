@@ -2,6 +2,7 @@
 
 namespace TwoFAS\Encryption;
 
+use TwoFAS\Encryption\Exceptions\AesException;
 use TwoFAS\Encryption\Interfaces\Cipher;
 use TwoFAS\Encryption\Interfaces\KeyStorage;
 
@@ -38,6 +39,8 @@ class Cryptographer
      * @param string $data Message to be encrypted
      *
      * @return string|null Encrypted message
+     *
+     * @throws AesException
      */
     public function encrypt($data)
     {
@@ -53,6 +56,8 @@ class Cryptographer
      * @param string $data Message to be decrypted
      *
      * @return string|null Decrypted message
+     *
+     * @throws AesException
      */
     public function decrypt($data)
     {

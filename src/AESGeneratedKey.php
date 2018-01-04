@@ -2,10 +2,12 @@
 
 namespace TwoFAS\Encryption;
 
+use TwoFAS\Encryption\Exceptions\AesException;
 use TwoFAS\Encryption\Interfaces\Key;
 
 /**
  * Class AESGeneratedKey implementing Key interface.
+ *
  * @package TwoFAS\Encryption
  */
 class AESGeneratedKey implements Key
@@ -26,10 +28,16 @@ class AESGeneratedKey implements Key
 
     /**
      * AESGeneratedKey constructor.
+     *
+     * @throws AesException
      */
     public function __construct()
     {
         $this->key = openssl_random_pseudo_bytes($this->keyLength);
+
+        if (false === $this->key) {
+            throw new AesException((string) openssl_error_string());
+        }
     }
 
     /**

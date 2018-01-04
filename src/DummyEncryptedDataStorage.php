@@ -2,6 +2,7 @@
 
 namespace TwoFAS\Encryption;
 
+use TwoFAS\Encryption\Exceptions\AesException;
 use TwoFAS\Encryption\Interfaces\Cipher;
 
 /**
@@ -50,6 +51,8 @@ class DummyEncryptedDataStorage
      * @param integer $dataId key under which data is stored.
      *
      * @return string data in decrypted form.
+     *
+     * @throws AesException
      */
     public function retrieveDecrypted($dataId)
     {

@@ -4,6 +4,6 @@ namespace TwoFAS\Encryption\Exceptions;
 
 use RuntimeException;
 
-class RsaEncryptException extends RuntimeException
+class AesException extends RuntimeException
 {
 }
