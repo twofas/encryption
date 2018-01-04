@@ -2,6 +2,7 @@
 
 namespace TwoFAS\Encryption;
 
+use TwoFAS\Encryption\Exceptions\AesException;
 use TwoFAS\Encryption\Interfaces\IVGenerator;
 
 /**
@@ -19,20 +20,36 @@ class AESIVGenerator implements IVGenerator
      * Generate IV to be used in AES-256-CBC algorithm.
      *
      * @return string
+     *
+     * @throws AesException
      */
     public function getIV()
     {
-        return openssl_random_pseudo_bytes($this->getIVLength());
+        $bytes = openssl_random_pseudo_bytes($this->getIVLength());
+
+        if (false === $bytes) {
+            throw new AesException();
+        }
+
+        return $bytes;
     }
 
     /**
      * Return length of generated IV.
      *
      * @return int
+     *
+     * @throws AesException
      */
     public function getIVLength()
     {
-        return openssl_cipher_iv_length($this->cipherMethod);
+        $length = openssl_cipher_iv_length($this->cipherMethod);
+
+        if (false === $length) {
+            throw new AesException();
+        }
+
+        return $length;
     }
 
     /**

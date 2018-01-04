@@ -1,6 +1,7 @@
 <?php
 
 namespace TwoFAS\Encryption\Interfaces;
+use TwoFAS\Encryption\Exceptions\AesException;
 
 /**
  * Interface Cipher
@@ -21,6 +22,8 @@ interface Cipher
      * @param string $data Message to be encrypted
      *
      * @return string Encrypted message
+     *
+     * @throws AesException
      */
     public function encrypt($data);
 
@@ -30,6 +33,8 @@ interface Cipher
      * @param string $data Message to be decrypted
      *
      * @return string Decrypted message
+     *
+     * @throws AesException
      */
     public function decrypt($data);
 }

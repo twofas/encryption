@@ -3,6 +3,7 @@
 namespace TwoFAS\Encryption;
 
 use InvalidArgumentException;
+use TwoFAS\Encryption\Exceptions\AesException;
 use TwoFAS\Encryption\Interfaces\Cipher;
 use TwoFAS\Encryption\Interfaces\IVGenerator;
 use TwoFAS\Encryption\Interfaces\KeyStorage;
@@ -56,6 +57,10 @@ class AESCipher implements Cipher
         // Encrypt
         $encryptedData = openssl_encrypt($data, $this->cipherMethod, $key->getValue(), 0, $iv);
 
+        if (false === $encryptedData) {
+            throw new AesException();
+        }
+
         // Encode
         $encryptedData = base64_encode($encryptedData);
 
@@ -84,6 +89,12 @@ class AESCipher implements Cipher
         $encryptedData = base64_decode($parts[0]);
         $iv            = base64_decode($parts[1]);
 
-        return openssl_decrypt($encryptedData, $this->cipherMethod, $key->getValue(), 0, $iv);
+        $decrypted = openssl_decrypt($encryptedData, $this->cipherMethod, $key->getValue(), 0, $iv);
+
+        if (false === $decrypted) {
+            throw new AesException();
+        }
+
+        return $decrypted;
     }
 }
