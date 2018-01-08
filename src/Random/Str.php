@@ -9,7 +9,7 @@ use OutOfRangeException;
  *
  * @package TwoFAS\Encryption\Random
  */
-class String
+class Str
 {
     /**
      * @var string
@@ -29,7 +29,7 @@ class String
      */
     public function length()
     {
-        return mb_strlen($this->value);
+        return mb_strlen($this->value, 'UTF-8');
     }
 
     /**

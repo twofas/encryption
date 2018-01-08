@@ -25,7 +25,7 @@ class RandomGenerator
      */
     public function string($size)
     {
-        return $this->getRandom(new String(self::LETTERS . self::DIGITS . self::SYMBOLS), $size);
+        return $this->getRandom(new Str(self::LETTERS . self::DIGITS . self::SYMBOLS), $size);
     }
 
     /**
@@ -37,7 +37,7 @@ class RandomGenerator
      */
     public function alphaNum($size)
     {
-        return $this->getRandom(new String(self::LETTERS . self::DIGITS), $size);
+        return $this->getRandom(new Str(self::LETTERS . self::DIGITS), $size);
     }
 
     /**
@@ -49,7 +49,7 @@ class RandomGenerator
      */
     public function symbols($size)
     {
-        return $this->getRandom(new String(self::SYMBOLS), $size);
+        return $this->getRandom(new Str(self::SYMBOLS), $size);
     }
 
     /**
@@ -60,9 +60,9 @@ class RandomGenerator
      *
      * @throws RandomBytesGenerateException
      */
-    private function getRandom(String $alphabet, $size)
+    private function getRandom(Str $alphabet, $size)
     {
-        $string = new String();
+        $string = new Str();
 
         if ($size < 1) {
             return $string;
