@@ -6,21 +6,22 @@ use OutOfRangeException;
 use TwoFAS\Encryption\Exceptions\RandomBytesGenerateException;
 
 /**
- * Class for generate non-cryptographical random strings.
+ * Non-cryptographical random strings generator.
  *
  * @package TwoFAS\Encryption\Random
  */
 class RandomGenerator
 {
-    const LETTERS    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const DIGITS     = '0123456789';
-    const SYMBOLS    = '!"#$%&()* +,-./:;<=>?@[]^_`{|}~';
-    const KEY_LENGTH = 128;
+    const LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const DIGITS  = '0123456789';
+    const SYMBOLS = '!"#$%&()* +,-./:;<=>?@[]^_`{|}~';
 
     /**
      * @param int $size
      *
      * @return String
+     *
+     * @throws RandomBytesGenerateException
      */
     public function string($size)
     {
@@ -31,6 +32,8 @@ class RandomGenerator
      * @param int $size
      *
      * @return String
+     *
+     * @throws RandomBytesGenerateException
      */
     public function alphaNum($size)
     {
@@ -41,6 +44,8 @@ class RandomGenerator
      * @param int $size
      *
      * @return String
+     *
+     * @throws RandomBytesGenerateException
      */
     public function symbols($size)
     {
@@ -52,6 +57,8 @@ class RandomGenerator
      * @param int    $size
      *
      * @return String
+     *
+     * @throws RandomBytesGenerateException
      */
     private function getRandom(String $alphabet, $size)
     {
@@ -63,15 +70,14 @@ class RandomGenerator
 
         while ($string->length() < $size) {
             try {
-                $randomBytes = openssl_random_pseudo_bytes(self::KEY_LENGTH);
+                $randomBytes = openssl_random_pseudo_bytes(1);
 
                 if (false === $randomBytes) {
                     throw new RandomBytesGenerateException((string) openssl_error_string());
                 }
 
-                $randomByte = $randomBytes[mt_rand(0, self::KEY_LENGTH - 1)];
-                $index      = ord($randomByte) % $alphabet->length();
-                $string     = $string->concat($alphabet->pick($index));
+                $index  = ord($randomBytes[0]) % $alphabet->length();
+                $string = $string->concat($alphabet->pick($index));
             } catch (OutOfRangeException $e) {
 
             }
