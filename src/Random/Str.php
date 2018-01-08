@@ -51,7 +51,7 @@ class Str
     /**
      * @param string $string
      *
-     * @return String
+     * @return Str
      */
     public function concat($string)
     {
@@ -59,7 +59,7 @@ class Str
     }
 
     /**
-     * @return String
+     * @return Str
      */
     public function toUpper()
     {
@@ -67,7 +67,7 @@ class Str
     }
 
     /**
-     * @return String
+     * @return Str
      */
     public function toLower()
     {
@@ -75,7 +75,7 @@ class Str
     }
 
     /**
-     * @return String
+     * @return Str
      */
     public function toBase64()
     {

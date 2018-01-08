@@ -19,7 +19,7 @@ class RandomGenerator
     /**
      * @param int $size
      *
-     * @return String
+     * @return Str
      *
      * @throws RandomBytesGenerateException
      */
@@ -31,7 +31,7 @@ class RandomGenerator
     /**
      * @param int $size
      *
-     * @return String
+     * @return Str
      *
      * @throws RandomBytesGenerateException
      */
@@ -43,7 +43,7 @@ class RandomGenerator
     /**
      * @param int $size
      *
-     * @return String
+     * @return Str
      *
      * @throws RandomBytesGenerateException
      */
@@ -53,10 +53,10 @@ class RandomGenerator
     }
 
     /**
-     * @param String $alphabet
+     * @param Str $alphabet
      * @param int    $size
      *
-     * @return String
+     * @return Str
      *
      * @throws RandomBytesGenerateException
      */
