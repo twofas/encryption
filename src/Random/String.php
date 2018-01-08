@@ -29,7 +29,7 @@ class String
      */
     public function length()
     {
-        return strlen($this->value);
+        return mb_strlen($this->value);
     }
 
     /**
