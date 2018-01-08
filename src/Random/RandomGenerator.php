@@ -12,10 +12,10 @@ use TwoFAS\Encryption\Exceptions\RandomBytesGenerateException;
  */
 class RandomGenerator
 {
-    const CHAR_ALPHA   = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const CHAR_DIGITS  = '0123456789';
-    const CHAR_SYMBOLS = '!"#$%&()* +,-./:;<=>?@[]^_`{|}~';
-    const KEY_LENGTH   = 128;
+    const LETTERS    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const DIGITS     = '0123456789';
+    const SYMBOLS    = '!"#$%&()* +,-./:;<=>?@[]^_`{|}~';
+    const KEY_LENGTH = 128;
 
     /**
      * @param int $size
@@ -24,7 +24,7 @@ class RandomGenerator
      */
     public function string($size)
     {
-        return $this->getRandom(new String(self::CHAR_ALPHA . self::CHAR_DIGITS . self::CHAR_SYMBOLS), $size);
+        return $this->getRandom(new String(self::LETTERS . self::DIGITS . self::SYMBOLS), $size);
     }
 
     /**
@@ -34,7 +34,7 @@ class RandomGenerator
      */
     public function alphaNum($size)
     {
-        return $this->getRandom(new String(self::CHAR_ALPHA . self::CHAR_DIGITS), $size);
+        return $this->getRandom(new String(self::LETTERS . self::DIGITS), $size);
     }
 
     /**
@@ -44,7 +44,7 @@ class RandomGenerator
      */
     public function symbols($size)
     {
-        return $this->getRandom(new String(self::CHAR_SYMBOLS), $size);
+        return $this->getRandom(new String(self::SYMBOLS), $size);
     }
 
     /**
