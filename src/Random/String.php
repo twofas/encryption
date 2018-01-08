@@ -5,35 +5,35 @@ namespace TwoFAS\Encryption\Random;
 use OutOfRangeException;
 
 /**
- * Class Str
+ * This is a value object that stores random string which can be converted to lower/upper chars or to base64.
  *
  * @package TwoFAS\Encryption\Random
  */
-class Str
+class String
 {
     /**
      * @var string
      */
-    private $string;
+    private $value;
 
     /**
-     * @param string $string
+     * @param string $value
      */
-    public function __construct($string = '')
+    public function __construct($value = '')
     {
-        $this->string = $string;
+        $this->value = $value;
     }
 
     /**
      * @return int
      */
-    public function strlen()
+    public function length()
     {
-        return strlen($this->string);
+        return strlen($this->value);
     }
 
     /**
-     * @param $index
+     * @param int $index
      *
      * @return string
      *
@@ -41,45 +41,45 @@ class Str
      */
     public function pick($index)
     {
-        if ($index >= $this->strlen()) {
+        if ($index >= $this->length()) {
             throw new OutOfRangeException('Index of char is out of range.');
         }
 
-        return $this->string[$index];
+        return $this->value[$index];
     }
 
     /**
-     * @param $string
+     * @param string $string
      *
-     * @return Str
+     * @return String
      */
     public function concat($string)
     {
-        return new self($this->string . $string);
+        return new self($this->value . $string);
     }
 
     /**
-     * @return Str
+     * @return String
      */
     public function toUpper()
     {
-        return new self(strtoupper($this->string));
+        return new self(strtoupper($this->value));
     }
 
     /**
-     * @return Str
+     * @return String
      */
     public function toLower()
     {
-        return new self(strtolower($this->string));
+        return new self(strtolower($this->value));
     }
 
     /**
-     * @return Str
+     * @return String
      */
     public function toBase64()
     {
-        return new self(base64_encode($this->string));
+        return new self(base64_encode($this->value));
     }
 
     /**
@@ -87,6 +87,6 @@ class Str
      */
     public function __toString()
     {
-        return $this->string;
+        return $this->value;
     }
 }
