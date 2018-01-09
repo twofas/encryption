@@ -14,7 +14,7 @@ class RandomGenerator
 {
     const LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const DIGITS  = '0123456789';
-    const SYMBOLS = '!"#$%&()* +,-./:;<=>?@[]^_`{|}~';
+    const SYMBOLS = '!#$%&()*+,-./:;<=>?@[]^_`{|}~';
 
     /**
      * @param int $size
