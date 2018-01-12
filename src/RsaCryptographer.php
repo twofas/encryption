@@ -40,7 +40,7 @@ class RsaCryptographer
             return base64_encode($encrypted);
         }
 
-        throw new RsaEncryptException('Encrypting went wrong');
+        throw new RsaEncryptException((string) openssl_error_string());
     }
 
     /**
@@ -56,6 +56,6 @@ class RsaCryptographer
             return $decrypted;
         }
 
-        throw new RsaDecryptException('Decrypting went wrong');
+        throw new RsaDecryptException((string) openssl_error_string());
     }
 }
