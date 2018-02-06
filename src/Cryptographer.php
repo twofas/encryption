@@ -4,7 +4,7 @@ namespace TwoFAS\Encryption;
 
 use TwoFAS\Encryption\Exceptions\AesException;
 use TwoFAS\Encryption\Interfaces\Cipher;
-use TwoFAS\Encryption\Interfaces\KeyStorage;
+use TwoFAS\Encryption\Interfaces\ReadKey;
 
 class Cryptographer
 {
@@ -24,11 +24,11 @@ class Cryptographer
     }
 
     /**
-     * @param KeyStorage $keyStorage
+     * @param ReadKey $keyStorage
      *
      * @return Cryptographer
      */
-    public static function getInstance(KeyStorage $keyStorage)
+    public static function getInstance(ReadKey $keyStorage)
     {
         return new self(new AESCipher(new AESIVGenerator(), $keyStorage));
     }
