@@ -72,7 +72,7 @@ class AESCipher implements Cipher
      */
     public function decrypt($data)
     {
-        // Retrieve key from KeyStorage object
+        // Retrieve key
         $key = $this->keyStorage->retrieve();
 
         // Obtain encrypted message and initialization vector
