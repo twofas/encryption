@@ -2,6 +2,7 @@
 
 namespace TwoFAS\Encryption;
 
+use RuntimeException;
 use TwoFAS\Encryption\Interfaces\Key;
 use TwoFAS\Encryption\Interfaces\ReadKey;
 use TwoFAS\Encryption\Interfaces\WriteKey;
@@ -33,6 +34,10 @@ class DummyKeyStorage implements ReadKey, WriteKey
      */
     public function retrieve()
     {
+        if (is_null($this->encodedKey)) {
+            throw new RuntimeException('key is empty');
+        }
+
         return new AESKey(base64_decode($this->encodedKey));
     }
 }
