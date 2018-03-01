@@ -48,6 +48,16 @@ class RandomGeneratorTest extends PHPUnit_Framework_TestCase
         $this->assertRegExp("/^[" . $pattern . "]{32}$/", $string->__toString());
     }
 
+    public function testGenerateFromCustomAlphabet()
+    {
+        $alphabet = 'abcdef123';
+        $string = $this->generator->fromCustomAlphabet($alphabet, 32);
+        $pattern = $this->getPattern($alphabet);
+
+        $this->assertEquals(32, strlen($string));
+        $this->assertRegExp("/^[" . $pattern . "]{32}$/", $string->__toString());
+    }
+
     /**
      * @param string $alphabet
      *

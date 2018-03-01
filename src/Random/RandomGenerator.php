@@ -53,6 +53,19 @@ class RandomGenerator
     }
 
     /**
+     * @param string $alphabet String consisting of characters allowed in generated value.
+     * @param int $size
+     *
+     * @return Str
+     *
+     * @throws RandomBytesGenerateException
+     */
+    public function fromCustomAlphabet($alphabet, $size)
+    {
+        return $this->getRandom(new Str($alphabet), $size);
+    }
+
+    /**
      * @param Str $alphabet
      * @param int    $size
      *
