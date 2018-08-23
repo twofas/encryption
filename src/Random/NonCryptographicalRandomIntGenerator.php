@@ -7,17 +7,20 @@ use TwoFAS\Encryption\Exceptions\RandomBytesGenerateException;
 class NonCryptographicalRandomIntGenerator implements RandomIntGenerator
 {
     /**
+     * @param int $min
      * @param int $max
      *
      * @return int
      */
-    public function generate($max)
+    public function generate($min, $max)
     {
+        $max -= $min;
+
         do {
             $index = ord($this->generateRandomByte());
         } while ($index > $max);
 
-        return $index;
+        return $min + $index;
     }
 
     /**

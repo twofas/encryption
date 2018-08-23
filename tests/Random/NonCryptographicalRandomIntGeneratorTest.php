@@ -20,7 +20,7 @@ class NonCryptographicalRandomIntGeneratorTest extends PHPUnit_Framework_TestCas
 
     public function testWillGenerateZero()
     {
-        $result = $this->generator->generate(0);
+        $result = $this->generator->generate(0, 0);
 
         $this->assertEquals(0, $result);
     }
@@ -30,7 +30,7 @@ class NonCryptographicalRandomIntGeneratorTest extends PHPUnit_Framework_TestCas
         $max = 255;
 
         for ($i = 0; $i < 5000; $i++) {
-            $result = $this->generator->generate($max);
+            $result = $this->generator->generate(0, $max);
 
             if ($result === $max) {
                 break;
