@@ -81,7 +81,7 @@ class RandomStringGenerator
         }
 
         while ($string->length() < $size) {
-            $index  = $this->intGenerator->generate($alphabet->length() - 1);
+            $index  = $this->intGenerator->generate(0, $alphabet->length() - 1);
             $string = $string->concat($alphabet->pick($index));
         }
 
