@@ -18,6 +18,27 @@ class NonCryptographicalRandomIntGeneratorTest extends PHPUnit_Framework_TestCas
         $this->generator = new NonCryptographicalRandomIntGenerator();
     }
 
+    public function testNegativeMin()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $this->generator->generate(-1, 0);
+    }
+
+    public function testMaxOverByte()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $this->generator->generate(0, 256);
+    }
+
+    public function testMinOverMax()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $this->generator->generate(10, 9);
+    }
+
     public function testWillGenerateZero()
     {
         $result = $this->generator->generate(0, 0);

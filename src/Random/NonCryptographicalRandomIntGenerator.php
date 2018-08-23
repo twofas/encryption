@@ -2,6 +2,7 @@
 
 namespace TwoFAS\Encryption\Random;
 
+use InvalidArgumentException;
 use TwoFAS\Encryption\Exceptions\RandomBytesGenerateException;
 
 class NonCryptographicalRandomIntGenerator implements RandomIntGenerator
@@ -14,6 +15,10 @@ class NonCryptographicalRandomIntGenerator implements RandomIntGenerator
      */
     public function generate($min, $max)
     {
+        if ($min < 0 || $max > 255 || $min > $max) {
+            throw new InvalidArgumentException();
+        }
+
         $max -= $min;
 
         do {
