@@ -6,11 +6,11 @@ use OutOfRangeException;
 use TwoFAS\Encryption\Exceptions\RandomBytesGenerateException;
 
 /**
- * Non-cryptographical random strings generator.
+ * Non-cryptographic random strings generator.
  *
  * @package TwoFAS\Encryption\Random
  */
-class RandomGenerator
+class RandomStringGenerator
 {
     const LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const DIGITS  = '0123456789';
