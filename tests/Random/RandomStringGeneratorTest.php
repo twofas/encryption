@@ -15,7 +15,7 @@ class RandomStringGeneratorTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->generator = new RandomStringGenerator();
+        $this->generator = new RandomStringGenerator(new NonCryptographicalRandomIntGenerator());
     }
 
     public function testGenerateString()

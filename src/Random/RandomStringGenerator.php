@@ -2,7 +2,6 @@
 
 namespace TwoFAS\Encryption\Random;
 
-use OutOfRangeException;
 use TwoFAS\Encryption\Exceptions\RandomBytesGenerateException;
 
 /**
@@ -15,6 +14,19 @@ class RandomStringGenerator
     const LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const DIGITS  = '0123456789';
     const SYMBOLS = '!#$%&()*+,-./:;<=>?@[]^_`{|}~';
+
+    /**
+     * @var RandomIntGenerator
+     */
+    private $intGenerator;
+
+    /**
+     * @param RandomIntGenerator $intGenerator
+     */
+    public function __construct(RandomIntGenerator $intGenerator)
+    {
+        $this->intGenerator = $intGenerator;
+    }
 
     /**
      * @param int $size
@@ -54,7 +66,7 @@ class RandomStringGenerator
 
     /**
      * @param Str $alphabet
-     * @param int    $size
+     * @param int $size
      *
      * @return Str
      *
@@ -69,18 +81,8 @@ class RandomStringGenerator
         }
 
         while ($string->length() < $size) {
-            try {
-                $randomBytes = openssl_random_pseudo_bytes(1);
-
-                if (false === $randomBytes) {
-                    throw new RandomBytesGenerateException((string) openssl_error_string());
-                }
-
-                $index  = ord($randomBytes[0]) % $alphabet->length();
-                $string = $string->concat($alphabet->pick($index));
-            } catch (OutOfRangeException $e) {
-
-            }
+            $index  = $this->intGenerator->generate($alphabet->length() - 1);
+            $string = $string->concat($alphabet->pick($index));
         }
 
         return $string;
