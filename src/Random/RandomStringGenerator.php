@@ -4,11 +4,6 @@ namespace TwoFAS\Encryption\Random;
 
 use TwoFAS\Encryption\Exceptions\RandomBytesGenerateException;
 
-/**
- * Non-cryptographic random strings generator.
- *
- * @package TwoFAS\Encryption\Random
- */
 class RandomStringGenerator
 {
     const LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
