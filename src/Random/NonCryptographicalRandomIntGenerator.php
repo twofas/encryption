@@ -8,14 +8,11 @@ use TwoFAS\Encryption\Exceptions\RandomBytesGenerateException;
 class NonCryptographicalRandomIntGenerator implements RandomIntGenerator
 {
     /**
-     * @param int $min
-     * @param int $max
-     *
-     * @return int
+     * @inheritdoc
      */
     public function generate($min, $max)
     {
-        if ($min < 0 || $max > 255 || $min > $max) {
+        if ($min < 0 || $max > 255 || $min > $max || !is_int($min) || !is_int($max)) {
             throw new InvalidArgumentException();
         }
 
@@ -30,6 +27,8 @@ class NonCryptographicalRandomIntGenerator implements RandomIntGenerator
 
     /**
      * @return string
+     *
+     * @throws RandomBytesGenerateException
      */
     private function generateRandomByte()
     {

@@ -2,6 +2,8 @@
 
 namespace TwoFAS\Encryption\Random;
 
+use TwoFAS\Encryption\Exceptions\RandomBytesGenerateException;
+
 interface RandomIntGenerator
 {
     /**
@@ -9,6 +11,8 @@ interface RandomIntGenerator
      * @param int $max
      *
      * @return int
+     *
+     * @throws RandomBytesGenerateException
      */
     public function generate($min, $max);
 }
