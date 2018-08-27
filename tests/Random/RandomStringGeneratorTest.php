@@ -4,10 +4,10 @@ namespace TwoFAS\Encryption\Random;
 
 use PHPUnit_Framework_TestCase;
 
-class RandomGeneratorTest extends PHPUnit_Framework_TestCase
+class RandomStringGeneratorTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var RandomGenerator
+     * @var RandomStringGenerator
      */
     private $generator;
 
@@ -15,13 +15,13 @@ class RandomGeneratorTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->generator = new RandomGenerator();
+        $this->generator = new RandomStringGenerator(new NonCryptographicalRandomIntGenerator());
     }
 
     public function testGenerateString()
     {
         $string   = $this->generator->string(128);
-        $alphabet = RandomGenerator::LETTERS . RandomGenerator::DIGITS . RandomGenerator::SYMBOLS;
+        $alphabet = RandomStringGenerator::LETTERS . RandomStringGenerator::DIGITS . RandomStringGenerator::SYMBOLS;
         $pattern  = $this->getPattern($alphabet);
 
         $this->assertEquals(128, strlen($string));
@@ -31,7 +31,7 @@ class RandomGeneratorTest extends PHPUnit_Framework_TestCase
     public function testGenerateAlphaNum()
     {
         $string   = $this->generator->alphaNum(64);
-        $alphabet = RandomGenerator::LETTERS . RandomGenerator::DIGITS;
+        $alphabet = RandomStringGenerator::LETTERS . RandomStringGenerator::DIGITS;
         $pattern  = $this->getPattern($alphabet);
 
         $this->assertEquals(64, strlen($string));
@@ -41,7 +41,7 @@ class RandomGeneratorTest extends PHPUnit_Framework_TestCase
     public function testGenerateSymbols()
     {
         $string   = $this->generator->symbols(32);
-        $alphabet = RandomGenerator::SYMBOLS;
+        $alphabet = RandomStringGenerator::SYMBOLS;
         $pattern  = $this->getPattern($alphabet);
 
         $this->assertEquals(32, strlen($string));
